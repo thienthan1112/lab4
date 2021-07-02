@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>LAB 4</h1>
+    <p class="lead">Bai tap hoi de</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <ul>
+        @foreach(var course in Model)
+        {
+        <li>
+            @course.DateTime.ToString("dd/MM/yyyy HH:mm") - @course.Place - @course.Category.Name
+        </li>
+        }
+    </ul>
+</div>
