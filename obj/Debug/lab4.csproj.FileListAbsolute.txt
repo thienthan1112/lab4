@@ -106,3 +106,9 @@ C:\Users\XPS\source\repos\lab4\obj\Debug\lab4.csproj.CoreCompileInputs.cache
 C:\Users\XPS\source\repos\lab4\obj\Debug\lab4.csproj.CopyComplete
 C:\Users\XPS\source\repos\lab4\obj\Debug\lab4.dll
 C:\Users\XPS\source\repos\lab4\obj\Debug\lab4.pdb
+C:\Users\XPS\source\repos\lab4\bin\System.Net.Http.Formatting.dll
+C:\Users\XPS\source\repos\lab4\bin\System.Web.Http.dll
+C:\Users\XPS\source\repos\lab4\bin\System.Web.Http.WebHost.dll
+C:\Users\XPS\source\repos\lab4\bin\System.Net.Http.Formatting.xml
+C:\Users\XPS\source\repos\lab4\bin\System.Web.Http.xml
+C:\Users\XPS\source\repos\lab4\bin\System.Web.Http.WebHost.xml

@@ -1,20 +1,58 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<lab4.Models.Course>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h1>LAB 4</h1>
     <p class="lead">Bai tap hoi de</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+</div>*@
 
 <div class="row">
-    <ul>
-        @foreach(var course in Model)
+    <ul class="course">
+        @foreach (var course in Model)
         {
-        <li>
-            @course.DateTime.ToString("dd/MM/yyyy HH:mm") - @course.Place - @course.Category.Name
-        </li>
+            <li>
+                <div class="date">
+                    <div class="month">
+                        @course.DateTime.ToString("MM")
+                    </div>
+                    <div class="date">
+                        @course.DateTime.ToString("dd")
+                    </div>
+                </div>
+                <div class="details">
+                    <span class="lecture">
+                        @course.Name
+                    </span>
+                    <span class="category">
+                        @course.Category.Name
+                    </span>
+                    <button data-course-id="@course.ID" class="btn btn-default btn-sm js-tongle-attendance">Going?</button>
+                </div>
+            </li>
         }
     </ul>
+    @section scripts {
+        <script>
+        $(document).ready(function () {
+            $(".js-tongle-attendance").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { Id: button.attr("data-course-id") })
+                    .done(function () {
+                        alert("Dang ky khoa hoc thanh cong!!!!");
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
+                    }).fail(function () {
+                        alert("Something fail");
+                    });
+            });
+
+        });
+        </script>    }
+
 </div>
