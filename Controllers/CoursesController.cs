@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,7 @@ namespace lab4.Controllers
 {
     public class CoursesController : Controller
     {
+        BigSchoolContext context = new BigSchoolContext();
         // GET: Courses
         public ActionResult Create()
         {
@@ -74,5 +76,65 @@ namespace lab4.Controllers
             }
             return View(courses);
         }
+
+
+        public ActionResult EditCourse(int id)
+        {
+         
+            Course coursee = context.Courses.FirstOrDefault(p => p.ID == id);
+            coursee.ListCategory = context.Categories.ToList();
+            if (coursee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(coursee);
+            
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCourse(Course coursee)
+        {
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+              .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            Course update = context.Courses.FirstOrDefault(p => p.ID == coursee.ID );
+            if(update != null)
+            {
+                coursee.LecturerId = currentUser.Id;
+                context.Courses.AddOrUpdate(coursee);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Mine");
+        }
+
+        public ActionResult DeleteCourse(int id)
+        {
+
+            Course coursee = context.Courses.FirstOrDefault(p => p.ID == id);
+            coursee.ListCategory = context.Categories.ToList();
+            if (coursee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(coursee);
+        }
+
+        [Authorize]
+        [HttpPost]
+
+        public ActionResult Delete(int id)
+        {
+
+            
+            Course coursee = context.Courses.SingleOrDefault(p => p.ID == id);
+            if (coursee != null)
+            {
+                context.Courses.Remove(coursee);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Mine");
+        }
+
     }
 }
