@@ -6,18 +6,15 @@ namespace lab4.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Attendance")]
-    public partial class Attendance
+    [Table("Following")]
+    public partial class Following
     {
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CourseId { get; set; }
+        public string FollowerId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        public string Attendee { get; set; }
-
-        public virtual Course Course { get; set; }
+        public string FolloweeId { get; set; }
     }
 }
